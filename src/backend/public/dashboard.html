@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>BookByte - Dashboard</title>
   <style>
     * {
       box-sizing: border-box;
@@ -14,19 +14,28 @@
 
     body {
       background-color: #f5f5f5;
+      color: #333;
     }
 
     .header {
-      background-color: #4CAF50;
+      background-color: #1925ff;
       color: white;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    .header h1 {
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: -8px;
+    }
+
+    .logo h1 {
       font-size: 1.5rem;
+      margin-left: 0.5rem;
     }
 
     .user-info {
@@ -40,52 +49,272 @@
 
     .logout-btn {
       background-color: white;
-      color: #4CAF50;
+      color: #1925ff;
       border: none;
       padding: 0.5rem 1rem;
       border-radius: 4px;
       cursor: pointer;
       font-weight: 500;
+      transition: background-color 0.2s;
     }
 
-    .content {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 2rem;
+    .logout-btn:hover {
+      background-color: #f0f0f0;
     }
 
-    .welcome-card {
+    .sidebar {
+      position: fixed;
+      width: 250px;
+      height: calc(100vh - 64px);
+      background-color: white;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem 0;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-item {
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .sidebar-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .sidebar-item.active {
+      background-color: #d9fcff;
+      border-left: 4px solid #1925ff;
+    }
+
+    .sidebar-icon {
+      margin-right: 0.75rem;
+      width: 20px;
+      height: 20px;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      padding: 2rem;
+    }
+
+    .search-container {
       background-color: white;
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 2rem;
+      padding: 1.5rem;
       margin-bottom: 2rem;
     }
 
-    .welcome-card h2 {
-      color: #333;
-      margin-bottom: 1rem;
+    .search-bar {
+      display: flex;
+      gap: 1rem;
     }
 
-    .welcome-card p {
+    .search-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .search-btn {
+      background-color: #1925ff;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+
+    .search-btn:hover {
+      background-color: #3e8e41;
+    }
+
+    .filters {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .filter-btn {
+      background-color: #f0f0f0;
+      color: #555;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active {
+      background-color: #1925ff;
+      color: white;
+    }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .book-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+
+    .book-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .book-img {
+      width: 100%;
+      height: 250px;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #999;
+    }
+
+    .book-info {
+      padding: 1rem;
+    }
+
+    .book-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      height: 2.8rem;
+    }
+
+    .book-author {
       color: #666;
-      line-height: 1.6;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .book-price {
+      font-weight: 600;
+      color: #1925ff;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.5rem;
+    }
+
+    .no-results {
+      text-align: center;
+      color: #666;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 70px;
+      }
+
+      .sidebar-text {
+        display: none;
+      }
+
+      .main-content {
+        margin-left: 70px;
+      }
+
+      .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      }
     }
   </style>
 </head>
 <body>
 <div class="header">
-  <h1>Dashboard</h1>
+  <div class="logo">
+    <img src="logo.png" width="60" height="60">
+    <h1>BookByte</h1>
+  </div>
   <div class="user-info">
     <span class="user-name" id="userName">User</span>
     <button class="logout-btn" id="logoutBtn">Logout</button>
   </div>
 </div>
 
-<div class="content">
-  <div class="welcome-card">
-    <h2>Welcome to Your Dashboard</h2>
-    <p>You have successfully logged in. This is a protected page that only authenticated users can access.</p>
+<div class="sidebar">
+  <ul class="sidebar-menu">
+    <li class="sidebar-item active">
+      <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <span class="sidebar-text">Dashboard</span>
+    </li>
+    <li class="sidebar-item">
+      <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+      </svg>
+      <span class="sidebar-text">My Books</span>
+    </li>
+    <li class="sidebar-item">
+      <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+      </svg>
+      <span class="sidebar-text">Saved</span>
+    </li>
+    <li class="sidebar-item">
+      <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+      <span class="sidebar-text">Cart</span>
+    </li>
+    <li class="sidebar-item">
+      <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+      <span class="sidebar-text">Settings</span>
+    </li>
+  </ul>
+</div>
+
+<div class="main-content">
+  <div class="search-container">
+    <div class="search-bar">
+      <input type="text" class="search-input" placeholder="Search for books by title, author, or ISBN...">
+      <button class="search-btn">Search</button>
+    </div>
+    <div class="filters">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Textbooks</button>
+      <button class="filter-btn">Fiction</button>
+      <button class="filter-btn">Non-Fiction</button>
+      <button class="filter-btn">Price: Low to High</button>
+    </div>
+  </div>
+
+  <h2 class="section-title">Featured Books</h2>
+  <div class="books-grid" id="booksContainer">
   </div>
 </div>
 
@@ -112,6 +341,142 @@
 
     // Redirect to login page
     window.location.href = '/index.html';
+  });
+
+  // Sample book data for testing
+  const sampleBooks = [
+    {
+      id: 1,
+      title: "Introduction to Computer Science",
+      author: "John Smith",
+      price: 45.99,
+      image: "https://upload.wikimedia.org/wikipedia/en/1/14/Florida_Gators_gator_logo.svg"
+    },
+    {
+      id: 2,
+      title: "Calculus: Early Transcendentals",
+      author: "James Stewart",
+      price: 59.99,
+      image: "https://upload.wikimedia.org/wikipedia/en/1/14/Florida_Gators_gator_logo.svg"
+    },
+    {
+      id: 3,
+      title: "The Great Gatsby",
+      author: "F. Scott Fitzgerald",
+      price: 12.50,
+      image: "https://upload.wikimedia.org/wikipedia/en/1/14/Florida_Gators_gator_logo.svg"
+    },
+    {
+      id: 4,
+      title: "Organic Chemistry",
+      author: "David Klein",
+      price: 72.25,
+      image: "https://upload.wikimedia.org/wikipedia/en/1/14/Florida_Gators_gator_logo.svg"
+    }
+  ];
+
+  displayBooks(sampleBooks);
+
+
+  // Function to display books
+  function displayBooks(books) {
+    const booksContainer = document.getElementById('booksContainer');
+    booksContainer.innerHTML = '';
+
+    if (books.length === 0) {
+      booksContainer.innerHTML = '<div class="no-results">No books found matching your search.</div>';
+      return;
+    }
+
+    books.forEach(book => {
+      const bookElement = document.createElement('div');
+      bookElement.className = 'book-card';
+      bookElement.innerHTML = `
+        <div class="book-img">
+          <img src="${book.image}" alt="${book.title}" onerror="this.onerror=null; this.src='https://via.placeholder.com/100';" width="100">
+        </div>
+        <div class="book-info">
+          <h3 class="book-title">${book.title}</h3>
+          <p class="book-author">by ${book.author}</p>
+          <p class="book-price">$${book.price.toFixed(2)}</p>
+        </div>
+      `;
+      booksContainer.appendChild(bookElement);
+    });
+  }
+
+
+  const searchInput = document.querySelector('.search-input');
+  const searchBtn = document.querySelector('.search-btn');
+
+  searchBtn.addEventListener('click', () => {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    if (searchTerm === '') {
+      displayBooks(sampleBooks);
+      return;
+    }
+
+    const filteredBooks = sampleBooks.filter(book =>
+            book.title.toLowerCase().includes(searchTerm) ||
+            book.author.toLowerCase().includes(searchTerm)
+    );
+
+    displayBooks(filteredBooks);
+  });
+
+  // Search on Enter key
+  searchInput.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') {
+      searchBtn.click();
+    }
+  });
+
+  // Filter buttons functionality
+  const filterButtons = document.querySelectorAll('.filter-btn');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Remove active class from all buttons
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+
+      // Add active class to clicked button
+      button.classList.add('active');
+
+      const filterType = button.textContent;
+      let filteredBooks = [...sampleBooks];
+
+      // Apply filter logic
+      if (filterType === 'Textbooks') {
+        filteredBooks = sampleBooks.filter(book =>
+                book.price > 30
+        );
+      } else if (filterType === 'Fiction') {
+        filteredBooks = sampleBooks.filter(book =>
+                book.price < 20
+        );
+      } else if (filterType === 'Non-Fiction') {
+        filteredBooks = sampleBooks.filter(book =>
+                book.price >= 20 && book.price <= 30
+        );
+      } else if (filterType === 'Price: Low to High') {
+        filteredBooks.sort((a, b) => a.price - b.price);
+      }
+
+      displayBooks(filteredBooks);
+    });
+  });
+
+  // Make sidebar items clickable (not operating yet)
+  const sidebarItems = document.querySelectorAll('.sidebar-item');
+
+  sidebarItems.forEach(item => {
+    item.addEventListener('click', () => {
+      // Remove active class from all items
+      sidebarItems.forEach(i => i.classList.remove('active'));
+
+      // Add active class to clicked item
+      item.classList.add('active');
+    });
   });
 </script>
 </body>
