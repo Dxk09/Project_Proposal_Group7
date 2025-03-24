@@ -244,6 +244,40 @@
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       }
     }
+
+    .popup-form {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .popup-form input, .popup-form button {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  #openFormBtn {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+
+  #closePopupBtn {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
   </style>
 </head>
 <body>
@@ -254,7 +288,7 @@
   </div>
   <div class="user-info">
     <span class="user-name" id="userName">User</span>
-    <button class="logout-btn" id="logoutBtn">Logout</button>
+    <button class="logout-btn" id="logoutBtn" onclick=logOut()>Logout</button>
   </div>
 </div>
 
@@ -303,6 +337,7 @@
     <div class="search-bar">
       <input type="text" class="search-input" placeholder="Search for books by title, author, or ISBN...">
       <button class="search-btn">Search</button>
+      <button id="openFormBtn">Sell Textbook</button>  
     </div>
     <div class="filters">
       <button class="filter-btn active">All</button>
@@ -316,32 +351,52 @@
   <h2 class="section-title">Featured Books</h2>
   <div class="books-grid" id="booksContainer">
   </div>
+
+  <div id="popupForm" class="popup-form">
+    <form id="textbookForm">
+      <label for="textbookName">Textbook Name</label>
+      <input type="text" id="textbookName" required />
+
+      <label for="author">Author</label>
+      <input type="text" id="author" required />
+
+      <label for="price">Price</label>
+      <input type="number" id="price" required />
+
+      <label for="photo">Photo Link</label>
+      <input type="text" id="photo" required />
+
+      <br><br><br>
+      <button type="submit">Submit</button>
+      <button type="button" id="closePopupBtn">Cancel</button>
+  </form>
+</div>
 </div>
 
 <script>
-  // Check if user is logged in
-  const token = localStorage.getItem('token');
-  const user = JSON.parse(localStorage.getItem('user'));
+  // // Check if user is logged in
+  // const token = localStorage.getItem('token');
+  // const user = JSON.parse(localStorage.getItem('user'));
 
-  // If no token, redirect to login page
-  if (!token) {
-    window.location.href = '/index.html';
-  }
+  // // If no token, redirect to login page
+  // if (!token) {
+  //   window.location.href = '/index.html';
+  // }
 
-  // Display user name
-  if (user && user.name) {
-    document.getElementById('userName').textContent = user.name;
-  }
+  // // Display user name
+  // if (user && user.name) {
+  //   document.getElementById('userName').textContent = user.name;
+  // }
 
-  // Handle logout
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    // Clear localStorage
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+  // // Handle logout
+  // document.getElementById('logoutBtn').addEventListener('click', () => {
+  //   // Clear localStorage
+  //   localStorage.removeItem('token');
+  //   localStorage.removeItem('user');
 
-    // Redirect to login page
-    window.location.href = '/index.html';
-  });
+  //   // Redirect to login page
+  //   window.location.href = '/index.html';
+  // });
 
   // Sample book data for testing
   const sampleBooks = [
@@ -479,5 +534,13 @@
     });
   });
 </script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="firebase.js"></script>
 </body>
 </html>
