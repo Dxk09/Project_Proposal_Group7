@@ -294,39 +294,76 @@
       }
     }
 
-    .popup-form {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+    .form-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      width: 40vw;
+    }
 
-  .popup-form input, .popup-form button {
-    width: 100%;
-    margin: 10px 0;
-  }
+    .form-content {
+      display: flex;
+      flex-direction: column;
+    }
 
-  #openFormBtn {
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 8px;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-  }
+    .form-title {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
 
-  #closePopupBtn {
-    background-color: #f44336;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-  }
+    .form-label {
+      margin-top: 20px;
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+
+    .form-input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    .form-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+    }
+
+    .form-btn {
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 35%;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .submit-btn {
+      background: rgba(40, 167, 69, 0.8);
+      color: white;
+    }
+
+    .submit-btn:hover {
+      background: rgba(40, 167, 69, 1);
+    }
+
+    .cancel-btn {
+      background: rgba(220, 53, 69, 0.8);
+      color: white;
+    }
+
+    .cancel-btn:hover {
+      background: rgba(220, 53, 69, 1);
+    }
+    
   </style>
   </head>
   <body>
@@ -430,7 +467,7 @@
       <div class="books-grid" id="booksContainer">
       </div>
 
-      <div id="popupForm" class="popup-form">
+      <!-- <div id="popupForm" class="popup-form">
         <form id="textbookForm">
           <label for="textbookName">Textbook Name</label>
           <input type="text" id="textbookName" required />
@@ -449,7 +486,30 @@
           <button type="button" id="closePopupBtn">Cancel</button>
         </form>
       </div>
-    </div>
+    </div> -->
+
+    <div id="popupForm" class="popup-form form-container">
+      <form id="textbookForm" class="form-content">
+        <h2 class="form-title">Add New Textbook</h2>
+        
+        <label for="textbookName" class="form-label">Textbook Name</label>
+        <input type="text" id="textbookName" class="form-input" required />
+    
+        <label for="author" class="form-label">Author</label>
+        <input type="text" id="author" class="form-input" required />
+    
+        <label for="price" class="form-label">Price</label>
+        <input type="number" id="price" class="form-input" required />
+    
+        <label for="photo" class="form-label">Photo Link</label>
+        <input type="text" id="photo" class="form-input" required />
+        
+        <div class="form-buttons">
+          <button type="submit" class="form-btn submit-btn">Submit</button>
+          <button type="button" id="closePopupBtn" class="form-btn cancel-btn">Cancel</button>
+        </div>
+      </form>
+    </div>    
 
     <script>
   // // Check if user is logged in
