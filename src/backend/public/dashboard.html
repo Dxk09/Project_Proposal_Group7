@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BookByte - Dashboard</title>
-  <style>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookByte - Dashboard</title>
+    <style>
     * {
       box-sizing: border-box;
       margin: 0;
@@ -18,6 +18,8 @@
     }
 
     .header {
+      position: sticky;
+      top: 0;
       background-color: #1925ff;
       color: white;
       padding: 1rem 2rem;
@@ -25,6 +27,9 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      height: 80px;
+      width: 100vw;
+      z-index: 10;
     }
 
     .logo {
@@ -65,7 +70,8 @@
     .sidebar {
       position: fixed;
       width: 250px;
-      height: calc(100vh - 64px);
+      height: calc(100vh - 80px);
+      top: 80px;
       background-color: white;
       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
       padding: 1.5rem 0;
@@ -125,18 +131,67 @@
     }
 
     .search-btn {
-      background-color: #1925ff;
-      color: white;
+      padding: 0.7rem 1.5rem;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
       border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 4px;
+      border-radius: 10px; /* Rounded corners */
       cursor: pointer;
-      font-weight: 500;
-      transition: background-color 0.2s;
+      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient */
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease-in-out; /* Smooth transitions */
+      letter-spacing: 1px;
     }
 
     .search-btn:hover {
-      background-color: #3e8e41;
+      background: linear-gradient(135deg, #2575fc, #6a11cb); /* Reverse the gradient */
+      transform: translateY(-5px); /* Lift the button up */
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); /* Bigger shadow for more depth */
+    }
+
+    .search-btn:active {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        transform: translateY(2px); /* Slight depression effect */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow when clicked */
+    }
+
+    .search-btn:focus {
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(100, 150, 255, 0.6); /* Outline effect for focus */
+    }
+
+    .sell-btn {
+      padding: 0.7rem 1rem;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 10px; /* Rounded corners */
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff6a00, #ff1493); /* New vibrant gradient */
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease-in-out; /* Smooth transitions */
+      letter-spacing: 1px;
+    }
+
+    .sell-btn:hover {
+      background: linear-gradient(135deg, #ff1493, #ff6a00); /* Reversed gradient for hover effect */
+      transform: translateY(-5px); /* Lift the button up */
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Bigger shadow for more depth */
+    }
+
+    .sell-btn:active {
+      background: linear-gradient(135deg, #ff6a00, #ff1493); /* Reverse gradient for active state */
+      transform: translateY(2px); /* Slight depression effect */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow when clicked */
+    }
+
+    .sell-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.6); /* Soft glow outline effect for focus */
     }
 
     .filters {
@@ -227,9 +282,13 @@
       margin-top: 2rem;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
       .sidebar {
         width: 70px;
+      }
+
+      .sidebar-item {
+        padding: 0.75rem 1rem;
       }
 
       .sidebar-text {
@@ -243,137 +302,257 @@
       .books-grid {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       }
+
+      .form-container {
+        width: 60vw !important;
+      }
     }
 
-    .popup-form {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+    @media (max-width: 768px) {
+      .search-bar {
+        flex-direction: column;
+      }
 
-  .popup-form input, .popup-form button {
-    width: 100%;
-    margin: 10px 0;
-  }
+      .filters {
+        flex-direction: column;
+      }
 
-  #openFormBtn {
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 8px;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-  }
+      .form-container {
+        width: 80vw !important;
+      }
+    }
 
-  #closePopupBtn {
-    background-color: #f44336;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-  }
+    #popupForm {
+      display: none;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .form-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      width: 40vw;
+    }
+
+    .form-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-title {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .form-label {
+      margin-top: 20px;
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+
+    .form-input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    .form-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+    }
+
+    .form-btn {
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 35%;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .submit-btn {
+      background: rgba(40, 167, 69, 0.8);
+      color: white;
+    }
+
+    .submit-btn:hover {
+      background: rgba(40, 167, 69, 1);
+    }
+
+    .cancel-btn {
+      background: rgba(220, 53, 69, 0.8);
+      color: white;
+    }
+
+    .cancel-btn:hover {
+      background: rgba(220, 53, 69, 1);
+    }
+    
   </style>
-</head>
-<body>
-<div class="header">
-  <div class="logo">
-    <img src="logo.png" width="60" height="60">
-    <h1>BookByte</h1>
-  </div>
-  <div class="user-info">
-    <span class="user-name" id="userName">User</span>
-    <button class="logout-btn" id="logoutBtn" onclick=logOut()>Logout</button>
-  </div>
-</div>
-
-<div class="sidebar">
-  <ul class="sidebar-menu">
-    <li class="sidebar-item active">
-      <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-      </svg>
-      <span class="sidebar-text">Dashboard</span>
-    </li>
-    <li class="sidebar-item">
-      <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-      </svg>
-      <span class="sidebar-text">My Books</span>
-    </li>
-    <li class="sidebar-item">
-      <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-      </svg>
-      <span class="sidebar-text">Saved</span>
-    </li>
-    <li class="sidebar-item">
-      <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="9" cy="21" r="1"></circle>
-        <circle cx="20" cy="21" r="1"></circle>
-        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-      </svg>
-      <span class="sidebar-text">Cart</span>
-    </li>
-    <li class="sidebar-item">
-      <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="3"></circle>
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-      </svg>
-      <span class="sidebar-text">Settings</span>
-    </li>
-  </ul>
-</div>
-
-<div class="main-content">
-  <div class="search-container">
-    <div class="search-bar">
-      <input type="text" class="search-input" placeholder="Search for books by title, author, or ISBN...">
-      <button class="search-btn">Search</button>
-      <button id="openFormBtn">Sell Textbook</button>  
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">
+        <img src="logo.png" width="60" height="60">
+        <h1>BookByte</h1>
+      </div>
+      <div class="user-info">
+        <span class="user-name" id="userName">User</span>
+        <button class="logout-btn" id="logoutBtn" onclick=logOut()>Logout</button>
+      </div>
     </div>
-    <div class="filters">
-      <button class="filter-btn active">All</button>
-      <button class="filter-btn">Textbooks</button>
-      <button class="filter-btn">Fiction</button>
-      <button class="filter-btn">Non-Fiction</button>
-      <button class="filter-btn">Price: Low to High</button>
+
+    <div class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item active">
+          <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span class="sidebar-text">Dashboard</span>
+        </li>
+        <li class="sidebar-item">
+          <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5
+              2z"></path>
+          </svg>
+          <span class="sidebar-text">My Books</span>
+        </li>
+        <li class="sidebar-item">
+          <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span class="sidebar-text">Saved</span>
+        </li>
+        <li class="sidebar-item">
+          <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23
+              6H6"></path>
+          </svg>
+          <span class="sidebar-text">Cart</span>
+        </li>
+        <li class="sidebar-item">
+          <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2
+              2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1
+              1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9
+              19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1
+              0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2
+              2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0
+              0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65
+              1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0
+              0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0
+              1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65
+              1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2
+              0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span class="sidebar-text">Settings</span>
+        </li>
+      </ul>
     </div>
-  </div>
 
-  <h2 class="section-title">Featured Books</h2>
-  <div class="books-grid" id="booksContainer">
-  </div>
+    <div class="main-content">
+      <div class="search-container">
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="Search for books by title, author, or ISBN...">
+          <button class="search-btn">Search</button>
+          <button id="openFormBtn" class="sell-btn">Sell Textbook</button>
+        </div>
+        <div class="filters">
+          <button class="filter-btn active">All</button>
+          <button class="filter-btn">Textbooks</button>
+          <button class="filter-btn">Fiction</button>
+          <button class="filter-btn">Non-Fiction</button>
+          <button class="filter-btn">Price: Low to High</button>
+        </div>
+      </div>
 
-  <div id="popupForm" class="popup-form">
-    <form id="textbookForm">
-      <label for="textbookName">Textbook Name</label>
-      <input type="text" id="textbookName" required />
+      <h2 class="section-title">Featured Books</h2>
+      <div class="books-grid" id="booksContainer">
+      </div>
 
-      <label for="author">Author</label>
-      <input type="text" id="author" required />
+      <!-- <div id="popupForm" class="popup-form">
+        <form id="textbookForm">
+          <label for="textbookName">Textbook Name</label>
+          <input type="text" id="textbookName" required />
 
-      <label for="price">Price</label>
-      <input type="number" id="price" required />
+          <label for="author">Author</label>
+          <input type="text" id="author" required />
 
-      <label for="photo">Photo Link</label>
-      <input type="text" id="photo" required />
+          <label for="price">Price</label>
+          <input type="number" id="price" required />
 
-      <br><br><br>
-      <button type="submit">Submit</button>
-      <button type="button" id="closePopupBtn">Cancel</button>
-  </form>
-</div>
-</div>
+          <label for="photo">Photo Link</label>
+          <input type="text" id="photo" required />
 
-<script>
+          <br><br><br>
+          <button type="submit">Submit</button>
+          <button type="button" id="closePopupBtn">Cancel</button>
+        </form>
+      </div>
+    </div> -->
+    <div id="popupForm" class="modal">
+      <div class="popup-form form-container">
+        <form id="textbookForm" class="form-content">
+          <h2 class="form-title">Add New Textbook</h2>
+          
+          <label for="textbookName" class="form-label">Textbook Name</label>
+          <input type="text" id="textbookName" class="form-input" required />
+      
+          <label for="author" class="form-label">Author</label>
+          <input type="text" id="author" class="form-input" required />
+      
+          <label for="price" class="form-label">Price</label>
+          <input type="number" id="price" class="form-input" required />
+      
+          <label for="photo" class="form-label">Photo Link</label>
+          <input type="text" id="photo" class="form-input" required />
+          
+          <div class="form-buttons">
+            <button type="submit" class="form-btn submit-btn">Submit</button>
+            <button type="button" id="closePopupBtn" class="form-btn cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
   // // Check if user is logged in
   // const token = localStorage.getItem('token');
   // const user = JSON.parse(localStorage.getItem('user'));
@@ -534,13 +713,15 @@
     });
   });
 </script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="firebase.js"></script>
-</body>
+  </body>
 </html>
