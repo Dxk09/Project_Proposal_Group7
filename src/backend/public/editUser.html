@@ -55,7 +55,7 @@
             background: linear-gradient(135deg, #00c6ff, #0072ff);
             color: white;
             border: none;
-            padding: 0.5rem 1.5rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 20px;
             cursor: pointer;
             font-weight: 500;
@@ -152,8 +152,56 @@
         }
 
         .cancel-btn {
-            background: #f0f0f0;
-            color: #333;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: #fff;
+            border: none;
+            box-shadow: 0 2px 4px rgba(255, 75, 43, 0.2);
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .cancel-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cancel-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .cancel-btn:hover {
+            background: linear-gradient(135deg, #ff4b2b, #ff416c);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
+        }
+
+        .cancel-btn:hover::before {
+            opacity: 1;
+        }
+
+        .cancel-btn:hover::after {
+            opacity: 0;
+        }
+
+        .cancel-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(255, 75, 43, 0.3);
         }
 
         .form-btn:hover {
@@ -165,7 +213,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
@@ -177,37 +225,38 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
         .profile-img::before {
-            content: "";
+            content: '';
+            position: absolute;
             width: 80px;
             height: 80px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>');
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E");
             background-size: contain;
             background-repeat: no-repeat;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            background-position: center;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .profile-img.has-image::before {
+            display: none;
         }
 
         .profile-img img {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
             object-fit: cover;
-            display: none;
-            position: relative;
-            z-index: 2;
-        }
-
-        .profile-img.has-image {
-            background: none;
-        }
-
-        .profile-img.has-image::before {
             display: none;
         }
 
@@ -215,27 +264,19 @@
             display: block;
         }
 
-        .upload-btn {
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
-            color: white;
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .profile-img input[type="file"] {
+            display: none;
         }
 
-        .upload-btn:hover {
-            background: linear-gradient(135deg, #0072ff, #00c6ff);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .profile-img-label {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            transition: color 0.3s ease;
         }
 
-        .upload-btn:active {
-            transform: translateY(1px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .profile-img:hover + .profile-img-label {
+            color: #4a00e0;
         }
 
         @media (max-width: 768px) {
@@ -282,9 +323,10 @@
 
             <div class="profile-picture">
                 <div class="profile-img" id="profileImg">
-                    <img src="" alt="Profile Picture">
+                    <img id="profileImage" src="" alt="Profile Picture">
+                    <input type="file" id="profilePicture" accept="image/*">
                 </div>
-                <button class="upload-btn" id="uploadBtn">Change Profile Picture</button>
+                <span class="profile-img-label">Click to change profile picture</span>
             </div>
 
             <form class="profile-form" id="editProfileForm">
@@ -303,11 +345,6 @@
                     <input type="tel" id="phone" class="form-input">
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="address">Address</label>
-                    <textarea id="address" class="form-input" rows="3"></textarea>
-                </div>
-
                 <div class="form-actions">
                     <button type="button" class="form-btn cancel-btn"
                         onclick="window.location.href='dashboard.html'">Cancel</button>
@@ -318,22 +355,43 @@
     </div>
 
     <script>
-        // Load user data
         document.addEventListener('DOMContentLoaded', () => {
-            const user = JSON.parse(localStorage.getItem('user'));
-            if (user) {
-                document.getElementById('name').value = user.name || '';
-                document.getElementById('email').value = user.email || '';
-                document.getElementById('phone').value = user.phone || '';
-                document.getElementById('address').value = user.address || '';
+            const profileImg = document.getElementById('profileImg');
+            const profileImage = document.getElementById('profileImage');
+            const profilePicture = document.getElementById('profilePicture');
+            const userData = JSON.parse(localStorage.getItem('user')) || {};
+
+            // Load user data
+            if (userData) {
+                document.getElementById('name').value = userData.name || '';
+                document.getElementById('email').value = userData.email || '';
+                document.getElementById('phone').value = userData.phone || '';
                 
-                // Handle profile picture
-                const profileImg = document.getElementById('profileImg');
-                if (user.profilePicture) {
+                if (userData.profilePicture) {
+                    profileImage.src = userData.profilePicture;
                     profileImg.classList.add('has-image');
-                    profileImg.querySelector('img').src = user.profilePicture;
                 }
             }
+
+            // Handle profile picture click
+            profileImg.addEventListener('click', () => {
+                profilePicture.click();
+            });
+
+            // Handle profile picture change
+            profilePicture.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        profileImage.src = e.target.result;
+                        profileImg.classList.add('has-image');
+                        userData.profilePicture = e.target.result;
+                        localStorage.setItem('user', JSON.stringify(userData));
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         });
 
         // Handle form submission
@@ -343,8 +401,7 @@
             const user = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                address: document.getElementById('address').value
+                phone: document.getElementById('phone').value
             };
 
             // Save to localStorage
@@ -355,22 +412,6 @@
 
             // Redirect back to dashboard
             window.location.href = 'dashboard.html';
-        });
-
-        // Handle profile picture upload
-        document.getElementById('uploadBtn').addEventListener('click', () => {
-            // This is a placeholder for actual file upload functionality
-            const newImageUrl = prompt('Enter image URL:');
-            if (newImageUrl) {
-                const profileImg = document.getElementById('profileImg');
-                profileImg.classList.add('has-image');
-                profileImg.querySelector('img').src = newImageUrl;
-                
-                // Save to user data
-                const user = JSON.parse(localStorage.getItem('user')) || {};
-                user.profilePicture = newImageUrl;
-                localStorage.setItem('user', JSON.stringify(user));
-            }
         });
     </script>
 </body>
