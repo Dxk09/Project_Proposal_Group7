@@ -53,7 +53,7 @@
             background: linear-gradient(135deg, #00c6ff, #0072ff);
             color: white;
             border: none;
-            padding: 0.5rem 1.5rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 20px;
             cursor: pointer;
             font-weight: 500;
@@ -173,17 +173,17 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .basket-item:hover .remove-btn {
-            opacity: 1;
+        .remove-icon {
+            width: 16px;
+            height: 16px;
         }
 
         .remove-btn:hover {
             background: linear-gradient(135deg, #ff4b2b, #ff416c);
         }
 
-        .remove-icon {
-            width: 16px;
-            height: 16px;
+        .basket-item:hover .remove-btn {
+            opacity: 1;
         }
 
         .basket-summary {
@@ -200,12 +200,14 @@
         }
 
         .checkout-btn {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 100%;
             max-width: 300px;
             margin: 1rem auto;
             padding: 1rem;
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            background: #0070ba;
             color: white;
             border: none;
             border-radius: 8px;
@@ -213,17 +215,25 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            gap: 0.5rem;
         }
 
         .checkout-btn:hover {
+            background: #005ea6;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .paypal-logo {
+            width: 24px;
+            height: 24px;
         }
 
         .empty-basket {
             text-align: center;
             color: #666;
-            padding: 2rem;
+            font-size: 1rem;
+            padding: 3rem;
         }
 
         @media (max-width: 768px) {
@@ -268,7 +278,10 @@
                 <div class="total-price" id="totalPrice">
                     Total: $0.00
                 </div>
-                <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+                <button class="checkout-btn" id="checkoutBtn">
+                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="PayPal" class="paypal-logo">
+                    Payment by PayPal
+                </button>
             </div>
         </div>
     </div>
