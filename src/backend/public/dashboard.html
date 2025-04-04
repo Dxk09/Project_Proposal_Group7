@@ -998,18 +998,48 @@
     });
   });
 
-  // Make sidebar items clickable (not operating yet)
+  const navPaths = [
+    'dashboard.html',
+    'my-books.html', // needs to be worked on
+    'saved.html', //needs to be worked on
+    'basket.html', // complete
+    'editUser.html' //complete
+  ];
+
+  // Get all sidebar items
   const sidebarItems = document.querySelectorAll('.sidebar-item');
+  console.log("Number of sidebar items found:", sidebarItems.length);
 
-  sidebarItems.forEach(item => {
+  const settingsItem = document.querySelector('.sidebar-item:nth-child(5)');
+  const basketItem = document.querySelector('.sidebar-item:nth-child(4)');
+  const dashboardItem = document.querySelector('.sidebar-item:nth-child(1)');
+
+  sidebarItems.forEach((item, index) => {
     item.addEventListener('click', () => {
-      // Remove active class from all items
       sidebarItems.forEach(i => i.classList.remove('active'));
-
-      // Add active class to clicked item
       item.classList.add('active');
+
+      // Check if this is the settings item
+      if (item === settingsItem) {
+        window.location.href = 'editUser.html';
+      }
+
+      if (item == basketItem) {
+        window.location.href = 'basket.html';
+      }
+
+      if (item == dashboardItem) {
+        window.location.href = 'dashboard.html';
+      }
+
     });
   });
+
+
+  //if (settingsItem) {
+    //settingsItem.addEventListener('click', function(e) {
+     // window.location.href = 'editUser.html';
+
 
   // User menu functionality
   const userName = document.getElementById('userName');
