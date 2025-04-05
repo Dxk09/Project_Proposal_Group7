@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile - BookByte</title>
+    <title>BookByte - Edit Profile</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,8 +13,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        html,
-        body {
+        html, body {
             width: 100%;
             max-width: 100vw;
             overflow-x: hidden;
@@ -51,11 +50,19 @@
             margin-left: 0.5rem;
         }
 
-        .back-btn {
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
+        .user-info {
+            display: flex;
+            align-items: center;
+            position: relative;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .basket-btn {
+            background: linear-gradient(135deg, #ff6a00, #ff1493);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.5rem 1.5rem;
             border-radius: 20px;
             cursor: pointer;
             font-weight: 500;
@@ -64,65 +71,157 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .back-btn:hover {
-            background: linear-gradient(135deg, #0072ff, #00c6ff);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .basket-btn::after {
+            content: "";
+            width: 20px;
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: relative;
+            z-index: 2;
+        }
+
+        .user-name {
+            margin-right: 0;
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-name::after {
+            content: "";
+            width: 20px;
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, #ff6a00, #ff1493);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logout-btn::after {
+            content: "";
+            width: 20px;
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sidebar {
+            position: fixed;
+            width: 250px;
+            height: calc(100vh - 80px);
+            top: 80px;
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem 0;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .sidebar-item.active {
+            background-color: #d9fcff;
+            border-left: 4px solid #1925ff;
+        }
+
+        .sidebar-icon {
+            margin-right: 0.75rem;
+            width: 20px;
+            height: 20px;
         }
 
         .main-content {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .profile-container {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-left: 250px;
             padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
 
-        .profile-header {
+        .form-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .form-title {
             text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .profile-title {
             font-size: 1.5rem;
+            margin-bottom: 1.5rem;
             color: #1925ff;
-            margin-bottom: 0.5rem;
-        }
-
-        .profile-subtitle {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .profile-form {
-            display: grid;
-            gap: 1.5rem;
         }
 
         .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
             font-weight: 500;
             color: #333;
         }
 
         .form-input {
+            width: 100%;
             padding: 0.75rem;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 1rem;
-            transition: border-color 0.2s;
+            transition: border-color 0.3s;
         }
 
         .form-input:focus {
@@ -130,122 +229,28 @@
             border-color: #1925ff;
         }
 
-        .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .form-btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .save-btn {
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
-            color: white;
-        }
-
-        .cancel-btn {
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            color: #fff;
-            border: none;
-            box-shadow: 0 2px 4px rgba(255, 75, 43, 0.2);
-            position: relative;
-            overflow: hidden;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        }
-
-        .cancel-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .cancel-btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-            opacity: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        .cancel-btn:hover {
-            background: linear-gradient(135deg, #ff4b2b, #ff416c);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
-        }
-
-        .cancel-btn:hover::before {
-            opacity: 1;
-        }
-
-        .cancel-btn:hover::after {
-            opacity: 0;
-        }
-
-        .cancel-btn:active {
-            transform: translateY(1px);
-            box-shadow: 0 2px 8px rgba(255, 75, 43, 0.3);
-        }
-
-        .form-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        .profile-picture {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
         .profile-img {
             width: 150px;
             height: 150px;
             border-radius: 50%;
+            margin: 0 auto 1.5rem;
             background: linear-gradient(135deg, #4a00e0, #8e2de2);
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
             position: relative;
+            cursor: pointer;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .profile-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .profile-img::before {
-            content: '';
-            position: absolute;
+            content: "";
             width: 80px;
             height: 80px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E");
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>');
             background-size: contain;
             background-repeat: no-repeat;
-            background-position: center;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
         }
 
@@ -269,31 +274,70 @@
         }
 
         .profile-img-label {
-            font-size: 0.9rem;
-            color: #666;
+            display: block;
             text-align: center;
-            transition: color 0.3s ease;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
         }
 
-        .profile-img:hover + .profile-img-label {
-            color: #4a00e0;
+        .form-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
         }
 
-        @media (max-width: 768px) {
+        .form-btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .cancel-btn {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+        }
+
+        .cancel-btn:hover {
+            background: linear-gradient(135deg, #ff4b2b, #ff416c);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 70px;
+            }
+
+            .sidebar-item {
+                padding: 0.75rem 1rem;
+            }
+
+            .sidebar-text {
+                display: none;
+            }
+
             .main-content {
-                margin: 1rem auto;
+                margin-left: 70px;
             }
 
-            .profile-container {
-                padding: 1.5rem;
-            }
-
-            .form-actions {
-                flex-direction: column;
-            }
-
-            .form-btn {
-                width: 100%;
+            .form-container {
+                width: 90%;
             }
         }
     </style>
@@ -305,114 +349,165 @@
             <img src="logo.png" width="60" height="60">
             <h1>BookByte</h1>
         </div>
-        <button class="back-btn" onclick="window.location.href='dashboard.html'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-            Back to Dashboard
-        </button>
+        <div class="user-info">
+            <button class="basket-btn" onclick="window.location.href='basket.html'"></button>
+            <button class="user-name" id="userName">User</button>
+            <button class="logout-btn" id="logoutBtn" onclick="logOut()">Logout</button>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="sidebar-item">
+                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span class="sidebar-text">Dashboard</span>
+            </li>
+            <li class="sidebar-item">
+                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <span class="sidebar-text">My Books</span>
+            </li>
+            <li class="sidebar-item">
+                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span class="sidebar-text">Saved</span>
+            </li>
+            <li class="sidebar-item">
+                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span class="sidebar-text">Cart</span>
+            </li>
+            <li class="sidebar-item active">
+                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span class="sidebar-text">Settings</span>
+            </li>
+        </ul>
     </div>
 
     <div class="main-content">
-        <div class="profile-container">
-            <div class="profile-header">
-                <h2 class="profile-title">Edit Profile</h2>
-                <p class="profile-subtitle">Update your personal information</p>
+        <div class="form-container">
+            <h2 class="form-title">Edit Profile</h2>
+            <div class="profile-img" id="profileImg">
+                <input type="file" id="profileImageInput" accept="image/*">
+                <img id="profileImage" src="" alt="Profile Picture">
             </div>
-
-            <div class="profile-picture">
-                <div class="profile-img" id="profileImg">
-                    <img id="profileImage" src="" alt="Profile Picture">
-                    <input type="file" id="profilePicture" accept="image/*">
-                </div>
-                <span class="profile-img-label">Click to change profile picture</span>
-            </div>
-
-            <form class="profile-form" id="editProfileForm">
+            <span class="profile-img-label">Click to change profile picture</span>
+            <form id="editProfileForm">
                 <div class="form-group">
-                    <label class="form-label" for="name">Full Name</label>
-                    <input type="text" id="name" class="form-input" required>
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input type="text" id="fullName" class="form-input" required>
                 </div>
-
                 <div class="form-group">
-                    <label class="form-label" for="email">Email Address</label>
+                    <label for="email" class="form-label">Email Address</label>
                     <input type="email" id="email" class="form-input" required>
                 </div>
-
                 <div class="form-group">
-                    <label class="form-label" for="phone">Phone Number</label>
-                    <input type="tel" id="phone" class="form-input">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" id="phone" class="form-input" required>
                 </div>
-
-                <div class="form-actions">
-                    <button type="button" class="form-btn cancel-btn"
-                        onclick="window.location.href='dashboard.html'">Cancel</button>
-                    <button type="submit" class="form-btn save-btn">Save Changes</button>
+                <div class="form-buttons">
+                    <button type="submit" class="form-btn submit-btn">Save Changes</button>
+                    <button type="button" class="form-btn cancel-btn" onclick="window.location.href='dashboard.html'">Cancel</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
+        // Load user data
         document.addEventListener('DOMContentLoaded', () => {
-            const profileImg = document.getElementById('profileImg');
-            const profileImage = document.getElementById('profileImage');
-            const profilePicture = document.getElementById('profilePicture');
             const userData = JSON.parse(localStorage.getItem('user')) || {};
-
-            // Load user data
-            if (userData) {
-                document.getElementById('name').value = userData.name || '';
-                document.getElementById('email').value = userData.email || '';
-                document.getElementById('phone').value = userData.phone || '';
-                
-                if (userData.profilePicture) {
-                    profileImage.src = userData.profilePicture;
-                    profileImg.classList.add('has-image');
-                }
+            document.getElementById('fullName').value = userData.name || '';
+            document.getElementById('email').value = userData.email || '';
+            document.getElementById('phone').value = userData.phone || '';
+            
+            if (userData.profileImage) {
+                const profileImg = document.getElementById('profileImg');
+                const profileImage = document.getElementById('profileImage');
+                profileImg.classList.add('has-image');
+                profileImage.src = userData.profileImage;
+                profileImage.style.display = 'block';
             }
+        });
 
-            // Handle profile picture click
-            profileImg.addEventListener('click', () => {
-                profilePicture.click();
-            });
+        // Handle profile image upload
+        const profileImg = document.getElementById('profileImg');
+        const profileImageInput = document.getElementById('profileImageInput');
+        const profileImage = document.getElementById('profileImage');
 
-            // Handle profile picture change
-            profilePicture.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        profileImage.src = e.target.result;
-                        profileImg.classList.add('has-image');
-                        userData.profilePicture = e.target.result;
-                        localStorage.setItem('user', JSON.stringify(userData));
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
+        profileImg.addEventListener('click', () => {
+            profileImageInput.click();
+        });
+
+        profileImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    profileImg.classList.add('has-image');
+                    profileImage.src = e.target.result;
+                    profileImage.style.display = 'block';
+                    
+                    // Save image to localStorage
+                    const userData = JSON.parse(localStorage.getItem('user')) || {};
+                    userData.profileImage = e.target.result;
+                    localStorage.setItem('user', JSON.stringify(userData));
+                };
+                reader.readAsDataURL(file);
+            }
         });
 
         // Handle form submission
         document.getElementById('editProfileForm').addEventListener('submit', (e) => {
             e.preventDefault();
-
-            const user = {
-                name: document.getElementById('name').value,
+            
+            const userData = {
+                name: document.getElementById('fullName').value,
                 email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value
+                phone: document.getElementById('phone').value,
+                profileImage: document.getElementById('profileImage').src
             };
-
-            // Save to localStorage
-            localStorage.setItem('user', JSON.stringify(user));
-
-            // Show success message
+            
+            localStorage.setItem('user', JSON.stringify(userData));
             alert('Profile updated successfully!');
-
-            // Redirect back to dashboard
             window.location.href = 'dashboard.html';
         });
+
+        // Handle sidebar navigation
+        const sidebarItems = document.querySelectorAll('.sidebar-item');
+        sidebarItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                const navPaths = [
+                    'dashboard.html',
+                    'my-books.html',
+                    'saved.html',
+                    'basket.html',
+                    'editUser.html'
+                ];
+                if (navPaths[index]) {
+                    window.location.href = navPaths[index];
+                }
+            });
+        });
+
+        // Function to handle logout
+        function logOut() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
     </script>
 </body>
 
