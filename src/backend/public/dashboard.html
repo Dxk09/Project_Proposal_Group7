@@ -684,6 +684,40 @@
     .cancel-btn:hover {
       background: rgba(220, 53, 69, 1);
     }
+
+    .save-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(135deg, #ffd700, #ffa500);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      z-index: 2;
+      opacity: 0;
+    }
+
+    .book-card:hover .save-btn {
+      opacity: 1;
+    }
+
+    .save-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .save-btn svg {
+      width: 20px;
+      height: 20px;
+    }
     
   </style>
   </head>
@@ -916,6 +950,11 @@
       const bookElement = document.createElement('div');
       bookElement.className = 'book-card';
       bookElement.innerHTML = `
+        <button class="save-btn" onclick="saveBook(${book.id})">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </button>
         <div class="book-img">
           <img src="${book.image}" alt="${book.title}" onerror="this.onerror=null; this.src='https://via.placeholder.com/100';" width="100">
         </div>
@@ -1099,6 +1138,20 @@
     localStorage.setItem('basket', JSON.stringify(basket));
     
     alert('Book added to basket!');
+  }
+
+  function saveBook(bookId) {
+    const book = sampleBooks.find(b => b.id === bookId);
+    if (book) {
+      let savedBooks = JSON.parse(localStorage.getItem('savedBooks')) || [];
+      if (!savedBooks.some(b => b.id === bookId)) {
+        savedBooks.push(book);
+        localStorage.setItem('savedBooks', JSON.stringify(savedBooks));
+        alert('Book saved successfully!');
+      } else {
+        alert('This book is already saved!');
+      }
+    }
   }
 </script>
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
