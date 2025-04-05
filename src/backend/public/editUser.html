@@ -13,7 +13,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        html, body {
+        html,
+        body {
             width: 100%;
             max-width: 100vw;
             overflow-x: hidden;
@@ -76,6 +77,17 @@
             overflow: hidden;
         }
 
+        .basket-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            z-index: 1;
+        }
+
         .basket-btn::after {
             content: "";
             width: 20px;
@@ -85,6 +97,17 @@
             background-repeat: no-repeat;
             position: relative;
             z-index: 2;
+        }
+
+        .basket-btn:hover {
+            background: linear-gradient(135deg, #ff1493, #ff6a00);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .basket-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .user-name {
@@ -105,6 +128,17 @@
             overflow: hidden;
         }
 
+        .user-name::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            z-index: 1;
+        }
+
         .user-name::after {
             content: "";
             width: 20px;
@@ -114,6 +148,17 @@
             background-repeat: no-repeat;
             position: relative;
             z-index: 2;
+        }
+
+        .user-name:hover {
+            background: linear-gradient(135deg, #0072ff, #00c6ff);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-name:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .logout-btn {
@@ -133,6 +178,17 @@
             overflow: hidden;
         }
 
+        .logout-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            z-index: 1;
+        }
+
         .logout-btn::after {
             content: "";
             width: 20px;
@@ -142,6 +198,17 @@
             background-repeat: no-repeat;
             position: relative;
             z-index: 2;
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(135deg, #ff1493, #ff6a00);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .logout-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar {
@@ -322,6 +389,12 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        .empty-basket {
+            text-align: center;
+            color: #666;
+            padding: 2rem;
+        }
+
         @media (max-width: 1024px) {
             .sidebar {
                 width: 70px;
@@ -339,9 +412,122 @@
                 margin-left: 70px;
             }
 
-            .form-container {
-                width: 90%;
+            .basket-item {
+                flex-direction: column;
+                text-align: center;
             }
+
+            .basket-item-img {
+                width: 100%;
+                height: 200px;
+            }
+        }
+
+        .user-menu {
+            position: absolute;
+            top: 100%;
+            right: 60px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+            min-width: 150px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .user-menu.active {
+            display: block;
+        }
+
+        .menu-item {
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .menu-item.delete {
+            color: #dc3545;
+        }
+
+        .menu-item.edit {
+            color: #007bff;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #dc3545;
+        }
+
+        .modal-message {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .modal-btn.confirm {
+            background: #dc3545;
+            color: white;
+        }
+
+        .modal-btn.cancel {
+            background: #6c757d;
+            color: white;
+        }
+
+        .modal-btn:hover {
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -355,34 +541,67 @@
         <div class="user-info">
             <button class="basket-btn" onclick="window.location.href='basket.html'"></button>
             <button class="user-name" id="userName">User</button>
+            <div class="user-menu" id="userMenu">
+                <a href="editUser.html" class="menu-item edit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                    Edit Profile
+                </a>
+                <div class="menu-item delete" id="deleteAccount">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 6h18"></path>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    Delete Account
+                </div>
+            </div>
             <button class="logout-btn" id="logoutBtn" onclick="logOut()">Logout</button>
+        </div>
+    </div>
+
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Delete Account</h3>
+            <p class="modal-message">Are you sure you want to delete your account? This action cannot be undone.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm" id="confirmDelete">Delete</button>
+                <button class="modal-btn cancel" id="cancelDelete">Cancel</button>
+            </div>
         </div>
     </div>
 
     <div class="sidebar">
         <ul class="sidebar-menu">
             <li class="sidebar-item">
-                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                     <polyline points="9 22 9 12 15 12 15 22"></polyline>
                 </svg>
                 <span class="sidebar-text">Dashboard</span>
             </li>
             <li class="sidebar-item">
-                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                     <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
                 </svg>
                 <span class="sidebar-text">My Books</span>
             </li>
             <li class="sidebar-item">
-                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
                 </svg>
                 <span class="sidebar-text">Saved</span>
             </li>
             <li class="sidebar-item">
-                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="9" cy="21" r="1"></circle>
                     <circle cx="20" cy="21" r="1"></circle>
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -390,9 +609,12 @@
                 <span class="sidebar-text">Cart</span>
             </li>
             <li class="sidebar-item active">
-                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="3"></circle>
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
                 </svg>
                 <span class="sidebar-text">Settings</span>
             </li>
@@ -422,7 +644,8 @@
                 </div>
                 <div class="form-buttons">
                     <button type="submit" class="form-btn submit-btn">Save Changes</button>
-                    <button type="button" class="form-btn cancel-btn" onclick="window.location.href='dashboard.html'">Cancel</button>
+                    <button type="button" class="form-btn cancel-btn"
+                        onclick="window.location.href='dashboard.html'">Cancel</button>
                 </div>
             </form>
         </div>
@@ -435,7 +658,7 @@
             document.getElementById('fullName').value = userData.name || '';
             document.getElementById('email').value = userData.email || '';
             document.getElementById('phone').value = userData.phone || '';
-            
+
             if (userData.profileImage) {
                 const profileImg = document.getElementById('profileImg');
                 const profileImage = document.getElementById('profileImage');
@@ -462,7 +685,7 @@
                     profileImg.classList.add('has-image');
                     profileImage.src = e.target.result;
                     profileImage.style.display = 'block';
-                    
+
                     // Save image to localStorage
                     const userData = JSON.parse(localStorage.getItem('user')) || {};
                     userData.profileImage = e.target.result;
@@ -475,14 +698,14 @@
         // Handle form submission
         document.getElementById('editProfileForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             const userData = {
                 name: document.getElementById('fullName').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 profileImage: document.getElementById('profileImage').src
             };
-            
+
             localStorage.setItem('user', JSON.stringify(userData));
             alert('Profile updated successfully!');
             window.location.href = 'dashboard.html';
@@ -511,6 +734,56 @@
             localStorage.removeItem('user');
             window.location.href = 'index.html';
         }
+
+        // User menu functionality
+        const userMenu = document.getElementById('userMenu');
+        const deleteAccount = document.getElementById('deleteAccount');
+        const deleteModal = document.getElementById('deleteModal');
+        const confirmDelete = document.getElementById('confirmDelete');
+        const cancelDelete = document.getElementById('cancelDelete');
+
+        // Toggle user menu
+        const userName = document.getElementById('userName');
+        if (userName) {
+            userName.addEventListener('click', (e) => {
+                e.stopPropagation();
+                userMenu.classList.toggle('active');
+            });
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', () => {
+            userMenu.classList.remove('active');
+        });
+
+        // Prevent menu from closing when clicking inside
+        userMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Delete account functionality
+        deleteAccount.addEventListener('click', () => {
+            deleteModal.classList.add('active');
+        });
+
+        confirmDelete.addEventListener('click', () => {
+            // Clear user data
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            // Redirect to home page
+            window.location.href = '/';
+        });
+
+        cancelDelete.addEventListener('click', () => {
+            deleteModal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside
+        deleteModal.addEventListener('click', (e) => {
+            if (e.target === deleteModal) {
+                deleteModal.classList.remove('active');
+            }
+        });
     </script>
 </body>
 
