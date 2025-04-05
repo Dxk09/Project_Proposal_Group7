@@ -1109,7 +1109,7 @@
       const navPaths = [
         'dashboard.html',
         'my-books.html', // needs to be worked on
-        'saved.html', //needs to be worked on
+        'saved.html', //complete
         'basket.html', // complete
         'editUser.html' //complete
       ];
@@ -1121,6 +1121,7 @@
       const settingsItem = document.querySelector('.sidebar-item:nth-child(5)');
       const basketItem = document.querySelector('.sidebar-item:nth-child(4)');
       const dashboardItem = document.querySelector('.sidebar-item:nth-child(1)');
+      const savedItem = document.querySelector('.sidebar-item:nth-child(3)');
 
       sidebarItems.forEach((item, index) => {
         item.addEventListener('click', () => {
@@ -1138,6 +1139,10 @@
 
           if (item == dashboardItem) {
             window.location.href = 'dashboard.html';
+          }
+
+          if (item == savedItem) {
+            window.location.href = 'saved.html';
           }
 
         });
