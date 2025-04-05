@@ -25,8 +25,10 @@
         }
 
         .header {
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             background-color: #1925ff;
             color: white;
             padding: 1rem 2rem;
@@ -35,8 +37,7 @@
             align-items: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             height: 80px;
-            width: 100vw;
-            z-index: 10;
+            z-index: 1000;
         }
 
         .logo {
@@ -151,6 +152,7 @@
             background-color: white;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             padding: 1.5rem 0;
+            z-index: 999;
         }
 
         .sidebar-menu {
@@ -183,6 +185,7 @@
         .main-content {
             margin-left: 250px;
             padding: 2rem;
+            margin-top: 80px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
